@@ -1,18 +1,18 @@
 //修改个人中心邮箱验证码
 function sendCodeChangeEmail($btn){
-    var verify = verifyDialogSubmit(
+    /*var verify = verifyDialogSubmit(
         [
           {id: '#jsChangeEmail', tips: Dml.Msg.epMail, errorTips: Dml.Msg.erMail, regName: 'email', require: true}
         ]
     );
     if(!verify){
        return;
-    }
+    }*/
     $.ajax({
         cache: false,
         type: "get",
         dataType:'json',
-        url:"/users/sendemail_code/",
+        url:"/user/sendemail_code",
         data:$('#jsChangeEmailForm').serialize(),
         async: true,
         beforeSend:function(XMLHttpRequest){
@@ -38,19 +38,19 @@ function sendCodeChangeEmail($btn){
 }
 //个人资料邮箱修改
 function changeEmailSubmit($btn){
-var verify = verifyDialogSubmit(
-        [
-          {id: '#jsChangeEmail', tips: Dml.Msg.epMail, errorTips: Dml.Msg.erMail, regName: 'email', require: true},
-        ]
-    );
-    if(!verify){
-       return;
-    }
+// var verify = verifyDialogSubmit(
+//         [
+//           {id: '#jsChangeEmail', tips: Dml.Msg.epMail, errorTips: Dml.Msg.erMail, regName: 'email', require: true},
+//         ]
+//     );
+//     if(!verify){
+//        return;
+//     }
     $.ajax({
         cache: false,
         type: 'post',
         dataType:'json',
-        url:"/users/update_email/ ",
+        url:"/user/UpdateEmailView ",
         data:$('#jsChangeEmailForm').serialize(),
         async: true,
         beforeSend:function(XMLHttpRequest){
@@ -86,9 +86,12 @@ $(function(){
             cache: false,
             type: "POST",
             dataType:'json',
-            url:"/users/update/pwd/",
+            url:"/user/upload/pwd/",
             data:$('#jsResetPwdForm').serialize(),
             async: true,
+              beforeSend:function(xhr, settings){
+                 xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+        },
             success: function(data) {
                 if(data.password1){
                     Dml.fun.showValidateError($("#pwd"), data.password1);
@@ -160,7 +163,7 @@ $(function(){
             cache: false,
             type: 'post',
             dataType:'json',
-            url:"/users/info/",
+            url:"/user/info/",
             data:$jsEditUserForm.serialize(),
             async: true,
             beforeSend:function(XMLHttpRequest){

@@ -34,7 +34,7 @@ class CourseComments(models.Model):
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     def __str__(self):
-        return self.user
+        return self.course.name
 
     class Meta:
         verbose_name ='课程评论'
@@ -42,9 +42,7 @@ class CourseComments(models.Model):
 
 
 class UserFavorite(models.Model):
-    """
-    用户收藏
-    """
+    """用户收藏"""
     user = models.ForeignKey(UserProfile, verbose_name='用户', on_delete=models.CASCADE)
     fav_id = models.IntegerField(default=0,verbose_name='数据id')
     fay_choices = (
@@ -56,7 +54,7 @@ class UserFavorite(models.Model):
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
     class Meta:
         verbose_name ='用户收藏'
@@ -73,7 +71,7 @@ class UserMessage(models.Model):
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     def __str__(self):
-        return self.user
+        return self.message
 
     class Meta:
         verbose_name ='用户消息'
@@ -89,7 +87,7 @@ class UserCourse(models.Model):
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
     class Meta:
         verbose_name ='用户课程'

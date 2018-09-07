@@ -25,7 +25,7 @@ SECRET_KEY = 'mc40*9b(udr+u+v4_)27g4$l_+1t!se_cp#a@g!q_*n#^4_r^v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,10 +41,11 @@ INSTALLED_APPS = [
     'courses.apps.CoursesConfig',
     'organization.apps.OrganizationConfig',
     'operations.apps.OperationsConfig',
-    'xadmin',
+    'model.xadmin',
     'crispy_forms',
     'captcha',#验证码库
     'pure_pagination',#分页
+    'DjangoUeditor'
 ]
 
 AUTH_USER_MODEL='users.UserProfile'
@@ -178,6 +179,7 @@ MEDIA_URL = "/media/"   # 媒体文件别名(相对路径) 和 绝对路径
 MEDIA_ROOT = (
     os.path.join(BASE_DIR, 'media')
 )
+STATI_ROOT=os.path.join(BASE_DIR,'static')
 EMAIL_HOST = "smtp.exmail.qq.com"
 EMAIL_PORT = 25
 EMAIL_HOST_USER = 'fengjinqi@kunlunengine.com'

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+公开课
+{% endblock %}
+
+{% block custom_bred %}
+  <section>
+        <div class="wp">
+            <ul  class="crumbs">
+                <li><a href="/">首页</a>></li>
+                <li>公开课</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+{% block content %}
+  <section>
+	<div class="wp">
+		<div class="list" style="margin-top:0;">
+			<div class="left layout">
+				<div class="head">
+					<ul class="tab_header">
+						<li class="{% if sort == ''%}active{% endif %}" ><a href="?sort=">最新 </a></li>
+						<li class="{% if sort == 'hot'%}active{% endif %}" ><a href="?sort=hot">最热门</a></li>
+						<li  class="{% if sort == 'students'%}active{% endif %}" ><a href="?sort=students">参与人数</a></li>
+					</ul>
+				</div>
+                <div id="inWindow">
+                    <div class="tab_cont " id="content">
+					<div class="group_list">
+                        {% for all_cours in all_courses.object_list %}
+                           <div class="box">
+                                <a href="/course/detail/{{ all_cours.id }}">
+                                    <img width="280" height="350" class="scrollLoading" src="{{ MEDIA_URL }}{{ all_cours.image }}"/>
+                                </a>
+                                <div class="des">
+                                    <a href="/course/detail/{{ all_cours.id }}">
+                                        <h2>{{ all_cours.name }}</h2>
+                                    </a>
+                                    <span class="fl">时长：<i class="key">{{ all_cours.learn_times }}</i></span>
+                                    <span class="fr">学习人数：{{ all_cours.students }}&nbsp;&nbsp;</span>
+                                </div>
+                                <div class="bottom">
+                                    <a href="/course/detail/{{ all_cours.id }}"><span class="fl">{{ all_cours.course_org.name }}</span></a>
+                                    <span class="star fr  notlogin " data-favid="15">{{ all_cours.click_nums }}
+                                    </span>
+                                </div>
+                            </div>
+                        {% endfor %}
+					</div>
+
+                    <div class="pageturn">
+                        <ul class="pagelist">
+                        {% if all_courses.has_previous %}
+                             <li class="long"><a href="?{{ all_courses.previous_page_number.querystring }}" class="prev">上一页</a></li>
+                            {% else %}
+                                <li class="long"><span class="disabled prev btn"disabled="">上一页</span></li>
+                            {% endif %}
+                            {% for page in all_courses.pages %}
+                                {% if page %}
+                                    {% ifequal page all_courses.number %}
+                                        <li class="active"><a href="?{{ page.querystring }}">{{ page }}</a></li>
+                                        <span class="current page"></span>
+                                    {% else %}
+                                             <li><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+                                    {% endifequal %}
+                                {% else %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if all_courses.has_next %}
+                                 <li class="long"><a href="?{{ all_courses.next_page_number.querystring }}" class="next"> 下一页</a></li>
+                            {% else %}
+                                <li class="long"><span class="disabled next btn"disabled=""> 下一页</span></li>
+                            {% endif %}
+                        </ul>
+                     </div>
+				</div>
+                </div>
+			</div>
+			<div class="right layout">
+				<div class="head">热门课程推荐</div>
+				<div class="group_recommend">
+                    {% for foo in hot_course %}
+
+                    <dl>
+						<dt>
+							<a target="_blank" href="/course/detail/{{ foo.id }}">
+								<img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ foo.image }}"/>
+							</a>
+						</dt>
+						<dd>
+							<a target="_blank"  href="/course/detail/{{ foo.id }}"><h2> {{ foo.name }}</h2></a>
+							<span class="fl">难度：<i class="key">{{ foo.get_degree_display }}</i></span>
+						</dd>
+					</dl>
+
+                    {% endfor %}
+
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

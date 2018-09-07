@@ -19,7 +19,7 @@ class UserProfile(AbstractUser):
     gender = models.CharField(max_length=6,choices=gender_choices,default='female')
     address = models.CharField(max_length=100,default='')
     mobile = models.CharField(max_length=11,null=True,blank=True)
-    image = models.ImageField(upload_to='image/%Y/%m',default='image/defalut')
+    image = models.ImageField(upload_to='image/%Y/%m')
 
     class Meta:
         verbose_name='用户信息'
@@ -27,7 +27,9 @@ class UserProfile(AbstractUser):
 
     def __str__(self):
         return self.username
-
+    def get_number(self):
+        from operations.models import UserMessage
+        return UserMessage.objects.filter(user=self.id,has_read=False).count()
 
 class EmailVerifyRecord(models.Model):
     """邮箱"""
@@ -35,9 +37,10 @@ class EmailVerifyRecord(models.Model):
     email = models.EmailField(max_length=50,verbose_name='邮箱')
     send_choices=(
         ('register','注册'),
-        ('forget','找回密码')
+        ('forget','找回密码'),
+        ('update_email','修改邮箱')
     )
-    send_type = models.CharField(verbose_name='验证码类型',max_length=10,choices=send_choices,default='forget')
+    send_type = models.CharField(verbose_name='验证码类型',max_length=30,choices=send_choices,default='forget')
     send_time = models.DateTimeField(default=datetime.now,verbose_name='发送时间')
 
     def __str__(self):

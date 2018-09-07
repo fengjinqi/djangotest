@@ -26,6 +26,7 @@ class CourseOrg(models.Model):
     """
     name = models.CharField(max_length=50,verbose_name='机构名称')
     desc = models.TextField(verbose_name='机构描述')
+    tag=models.CharField(default='全国知名',max_length=50,verbose_name='机构标签')
     catgory_choices = (
         ('pxjg','培训机构'),
         ('gr','个人'),
@@ -61,6 +62,9 @@ class Teacher(models.Model):
     points = models.CharField(max_length=50, verbose_name='教学特点')
     click_nums = models.IntegerField(default=0, verbose_name='点击数')
     fav_nums = models.IntegerField(default=0, verbose_name='收藏数')
+    age = models.IntegerField(default=0, verbose_name='年龄')
+    image = models.ImageField(upload_to='teacher/%Y/%m', verbose_name='头像', max_length=200,default='')
+
     add_time = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
@@ -69,3 +73,6 @@ class Teacher(models.Model):
     class Meta:
         verbose_name = '教师'
         verbose_name_plural = verbose_name
+
+    def get_count(self):
+        return self.course_set.all().count()

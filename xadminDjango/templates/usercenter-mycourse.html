@@ -1,0 +1,50 @@
+
+{% extends 'base_user.html' %}
+{% block title %}
+我的课程
+{% endblock %}
+{% block custom_break %}
+
+    <section>
+        <div class="wp">
+            <ul  class="crumbs">
+                <li><a href="/">首页</a>></li>
+                <li><a href="/user/info">个人中心</a>></li>
+                <li>个人信息</li>
+            </ul>
+        </div>
+    </section>
+
+{% endblock %}
+{% block conent %}
+    <div class="right" >
+		<div class="personal_des Releasecont">
+			<div class="head">
+				<h1>我的课程</h1>
+			</div>
+		</div>
+		<div class="personal_des permessage">
+			<div class="companycenter">
+				<div class="group_list brief">
+                    {% for user_cours in user_courses %}
+                      <div class="module1_5 box">
+                            <a href="/course/detail/{{ user_cours.course.id }}">
+                                <img width="214" height="190" class="scrollLoading" src="{{ MEDIA_URL }}{{ user_cours.course.image}}"/>
+                            </a>
+                            <div class="des">
+                                <a href="/course/detail/{{ user_cours.course.id }}"><h2>{{ user_cours.course.name }}</h2></a>
+                                <span class="fl">课时：<i class="key">{{ user_cours.course.learn_times }}</i></span>
+                                <span class="fr">学习人数：{{ user_cours.course.students }}</span>
+                            </div>
+                            <div class="bottom">
+                                <span class="fl">{{ user_cours.course.course_org.name }}</span>
+                                <span class="star fr  notlogin" data-favid="15">{{ user_cours.course.fav_nums }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

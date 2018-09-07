@@ -27,20 +27,50 @@
 					<div class="fl">
                         <p>联系方式：<b>3333333333</b></p>
                     </div>
-                    <a style="color:white" class="fr registerbtn" href="register.html">注册</a>
-                    <a style="color:white" class="fr loginbtn" href="login.html">登录</a>
+                       {% if  request.user.is_authenticated %}
+                        <div class="personal">
+                            <dl class="user fr">
+                                <dd>{{ request.user }}<img class="down fr" src="{% static 'images/top_down.png' %}"/></dd>
+                                <dt><img width="20" height="20" src="{% static 'media/image/2016/12/default_big_14.png' %}"/></dt>
+                            </dl>
+                            <div class="userdetail">
+                            	<dl>
+	                                <dt><img width="80" height="80" src="{% static 'media/image/2016/12/default_big_14.png' %}"/></dt>
+	                                <dd>
+	                                    <h2>django</h2>
+	                                    <p>bobby</p>
+	                                </dd>
+                                </dl>
+                                <div class="btn">
+	                                <a class="personcenter fl" href="/user/info">进入个人中心</a>
+	                                <a class="fr" href="/logout/">退出</a>
+                                </div>
+                            </div>
+                        </div>
+                            <a href="">
+    <div class="msg-num">
+    <span id="MsgNum">{{ request.user.get_number }}</span>
+        </div>
+    </a>
+                        {% else %}
+                         <a style="color:white" class="fr registerbtn" href="register/">注册</a>
+                         <a style="color:white" class="fr loginbtn" href="login/">登录</a>
+
+                    {% endif %}
+
+
 				</div>
 			</div>
 
 
     <div class="middle companyheader">
         <div class="wp">
-            <img class="fl" style="width: 112px;height: 103px" src="../media/org/2016/11/imooc.png"/>
+            <img class="fl" style="width: 112px;height: 103px" src="{% static 'media/org/2016/11/imooc.png' %}"/>
             <div class="head fl">
                 <h1>
                     慕课网
-                    <img src="../images/authentication.png"/>
-                    <img src="../images/gold.png"/>
+                    <img src="{% static 'images/authentication.png' %}"/>
+                    <img src="{% static 'images/gold.png' %}"/>
                 </h1>
                 <p class="fl">
                     <span class="fl" style="margin-top:8px;color:#848484;">推荐指数： </span>
@@ -50,7 +80,7 @@
             </div>
             <div class="btn fr collectionbtn  notlogin
                  "data-favid="22" data-fav-type="1">
-                 收藏
+                 {% if has_fav %}已收藏{% else %}收藏{% endif %}
             </div>
 
         </div>
@@ -61,8 +91,8 @@
 <section>
 	<div class="wp">
 		<ul  class="crumbs">
-            <li><a href="index.html">首页</a>></li>
-			<li><a href="org-list.html">课程机构</a>></li>
+            <li><a href="/">首页</a>></li>
+			<li><a >课程机构</a>></li>
 			<li>{% block page_path %}
 			机构课程
 			{% endblock %}</li>
@@ -74,103 +104,14 @@
 	<div class="wp list personal_list comp">
 		<div class="left">
 			<ul>
-				<li class=""><a href="org-detail-homepage.html">机构首页</a></li>
-                <li class="active2"><a href="org-detail-course.html">机构课程</a></li>
-                <li class=""><a href="org-detail-desc.html">机构介绍</a></li>
-                <li class=""><a href="org-detail-teachers.html">机构讲师</a></li>
+				<li class="{% ifequal current_page  'home' %}active2{% endifequal %}"><a href="/org/home/{{course_org.id }}">机构首页</a></li>
+                <li class="{% ifequal current_page  'course' %}active2{% endifequal %}"><a href="/org/course/{{course_org.id }}">机构课程</a></li>
+                <li class="{% ifequal current_page  'desc' %}active2{% endifequal %}"><a href="/org/desc/{{course_org.id }}">机构介绍</a></li>
+                <li class="{% ifequal current_page  'teachers' %}active2{% endifequal %}"><a href="/org/teachers/{{course_org.id }}">机构讲师</a></li>
 			</ul>
 		</div>
 {% block custom_bred %}
-<div class="right companycenter layout" >
-		<div class="head">
-			<h1>机构课程</h1>
-		</div>
-		<div class="brief group_list">
 
-                <div class="module1_5 box">
-                    <a class="comp-img-box" href="course-detail.html">
-
-                        <img width="214" height="195" src="../media/courses/2016/11/mysql.jpg"/>
-                    </a>
-                    <div class="des">
-                        <a href="course-detail.html"><h2>django入门</h2></a>
-                        <span class="fl">课时：<i class="key">0</i></span>
-                        <span class="fr">学习人数：3</span>
-                    </div>
-                    <div class="bottom">
-                        <span class="fl">慕课网</span>
-                         <span class="star fr  notlogin
-                            " data-favid="13" data-fav-type="4">
-                            0
-                        </span>
-                    </div>
-                </div>
-
-                <div class="module1_5 box">
-                    <a class="comp-img-box" href="course-detail.html">
-
-                        <img width="214" height="195" src="../media/courses/2016/11/540e57300001d6d906000338-240-135_mvvGYHL.jpg"/>
-                    </a>
-                    <div class="des">
-                        <a href="course-detail.html"><h2>django实战项目</h2></a>
-                        <span class="fl">课时：<i class="key">0</i></span>
-                        <span class="fr">学习人数：0</span>
-                    </div>
-                    <div class="bottom">
-                        <span class="fl">慕课网</span>
-                         <span class="star fr  notlogin
-                            " data-favid="13" data-fav-type="4">
-                            0
-                        </span>
-                    </div>
-                </div>
-
-                <div class="module1_5 box">
-                    <a class="comp-img-box" href="course-detail.html">
-
-                        <img width="214" height="195" src="../media/courses/2016/12/python错误和异常.jpg"/>
-                    </a>
-                    <div class="des">
-                        <a href="course-detail.html"><h2>python错误和异常</h2></a>
-                        <span class="fl">课时：<i class="key">0</i></span>
-                        <span class="fr">学习人数：0</span>
-                    </div>
-                    <div class="bottom">
-                        <span class="fl">慕课网</span>
-                         <span class="star fr  notlogin
-                            " data-favid="13" data-fav-type="4">
-                            0
-                        </span>
-                    </div>
-                </div>
-
-                <div class="module1_5 box">
-                    <a class="comp-img-box" href="course-detail.html">
-
-                        <img width="214" height="195" src="../media/courses/2016/12/mysql.jpg"/>
-                    </a>
-                    <div class="des">
-                        <a href="course-detail.html"><h2>xadmin进阶开发</h2></a>
-                        <span class="fl">课时：<i class="key">30</i></span>
-                        <span class="fr">学习人数：2</span>
-                    </div>
-                    <div class="bottom">
-                        <span class="fl">慕课网</span>
-                         <span class="star fr  notlogin
-                            " data-favid="13" data-fav-type="4">
-                            1
-                        </span>
-                    </div>
-                </div>
-
-
-		</div>
-			<div class="pageturn">
-                <ul class="pagelist">
-                    <li class="active"><a href="?page=1">1</a></li>
-                </ul>
-            </div>
-	</div>
 {% endblock %}
 
 </section>
@@ -205,9 +146,12 @@ function add_fav(current_elem, fav_id, fav_type){
         data:{'fav_id':fav_id, 'fav_type':fav_type},
         async: true,
         beforeSend:function(xhr, settings){
-            xhr.setRequestHeader("X-CSRFToken", "5I2SlleZJOMUX9QbwYLUIAOshdrdpRcy");
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
         },
         success: function(data) {
+            var data = JSON.parse(data)
+             console.log(data)
+
             if(data.status == 'fail'){
                 if(data.msg == '用户未登录'){
                     window.location.href="login.html";
@@ -216,6 +160,7 @@ function add_fav(current_elem, fav_id, fav_type){
                 }
 
             }else if(data.status == 'success'){
+
                 current_elem.text(data.msg)
             }
         },
@@ -223,7 +168,7 @@ function add_fav(current_elem, fav_id, fav_type){
 }
 
 $('.collectionbtn').on('click', function(){
-    add_fav($(this), 1, 2);
+    add_fav($(this), {{course_org.id }}, 2);
 });
 
 $(function(){
@@ -231,7 +176,7 @@ $(function(){
         score = $precision.attr('data-star-scope'),
         option =  {
                     half		: true,
-                    path		: '../images/',
+                    path		: '{% static 'images' %}',
                     precision	: true,
                     size		: 24,
                     starOff		: 'g_star.png',
@@ -287,6 +232,11 @@ $(function() {
         unslider.data('unslider')[fn]();
     });
 });
+$(".user").hover(function () {
+    $(".userdetail").show()
+},function () {
+      $(".userdetail").hide()
+})
 </script>
 
 </body>

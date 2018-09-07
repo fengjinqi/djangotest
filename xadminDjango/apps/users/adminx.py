@@ -2,8 +2,8 @@
 # -*- coding:utf-8 -*-  
 import xadmin
 from xadmin import views
-from .models import EmailVerifyRecord,Banner
-
+from .models import EmailVerifyRecord, Banner, UserProfile
+from xadmin.plugins.auth import UserAdmin
 #TODO 全局配置
 
 class BaseSetting(object):
@@ -22,6 +22,7 @@ class EmailVerifyRecordAdmin(object):
     list_display = ['code','email','send_type','send_time']
     search_fields = ['code','email','send_type']
     list_filter=['code','email','send_type']
+    model_icon ='fa fa-envelope-o'#修改字体图标
 
 @xadmin.sites.register(Banner)
 class BannerAdmin(object):
@@ -33,3 +34,5 @@ class BannerAdmin(object):
 xadmin.site.register(EmailVerifyRecord,EmailVerifyRecordAdmin)
 xadmin.site.register(views.BaseAdminView,BaseSetting)
 xadmin.site.register(views.CommAdminView,GlobalSetting)
+
+
